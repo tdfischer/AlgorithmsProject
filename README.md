@@ -1,1 +1,5 @@
 Algorithms Project README
+=========================
+
+Contents
+--------
