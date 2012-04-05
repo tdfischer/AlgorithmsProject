@@ -3,74 +3,20 @@
 <html>
   <head>
     <title>Canvas example FIXME</title>
-
-    <script type="text/javascript">
-
-      var MAPOBJECTS = {
-        AIR: {value: 0},
-        WALL: {value: 1},
-        ENTRANCE: {value: 100},
-        EXIT: {value: 101}
-      };
-      //a simple map for later
-      /*var testMap = [
-      [1,1,1,1,1,1,1,1,1,1,1],
-      [1,0,1,0,1,0,0,0,0,0,1],
-      [1,0,0,0,1,0,0,1,0,0,1],
-      [1,0,1,0,0,0,0,1,0,0,1],
-      [1,1,1,1,1,1,1,1,1,0,1]];*/
-      var gridSize = 10; //in pixels.
-      var desiredWidth = 65;
-      var desiredHeight = 35;
-      var randomPercent = 70;
-
-      var testMap = new Array(desiredWidth);
-
-      for (var fillArray = 0; fillArray < desiredWidth; ++fillArray) {
-        testMap[fillArray] = new Array(desiredHeight);
-      }
-      var entranceAdded = 0;
-      var exitAdded = 0;
-      for (var q = 0; q < desiredWidth; ++q) {
-        for (var v = 0; v < desiredHeight; ++v) {
-          if (q == 0 || v == 0) {
-            testMap[v][q]=1;
-          }
-          else if (q == (desiredWidth-1) || v == (desiredHeight-1)) {
-            testMap[v][q]=1;
-          }
-          else {
-            testMap[v][q]=((Math.floor(Math.random()*100)>randomPercent) ? MAPOBJECTS.WALL.value : MAPOBJECTS.AIR.value);
-          }
-        }
-      }
-
-      var entranceAdded = 0;
-      var exitAdded = 0;
-
-      while (entranceAdded == 0 || exitAdded == 0) {
-        var x = Math.floor(Math.random()*desiredWidth);
-        var y = Math.floor(Math.random()*desiredHeight);
-
-        if (x == 0 || x == (desiredWidth-1) || y == 0 || y == (desiredHeight-1)) {
-          if (entranceAdded == 0) {
-            entranceAdded = 1;
-            testMap[y][x] = MAPOBJECTS.ENTRANCE.value;
-          }
-          else if (exitAdded == 0) {
-            exitAdded = 1;
-            testMap[y][x] = MAPOBJECTS.EXIT.value;
-          }
-        }
-      }
-            
-    </script>
+	<script src="generator.js">
+	</script>
   </head>
 
   <body>
 
-    <canvas id="myCanvas" width="800" height="600">Your browser does not support Canvas</canvas>
+    <canvas id="myCanvas" width="1200" height="760">Your browser does not support Canvas</canvas>
+	
     <script type="text/javascript">
+	var numRows = 76;
+	var numColumns = 120;
+	var pixelSize = 10;
+	var mapDensityInPercent = 25;
+	var myMap = generateMap(numColumns, numRows, mapDensityInPercent);
       //Canvas example!
 
       //get the canvas 2d stuff
@@ -79,26 +25,30 @@
       ctx.fillStyle="#FFFFFF";
       //begin mapping things!
       //note the ordering. This keeps things aligned with the 2d array
-      for (var i = 0; i < desiredWidth; ++i) {
-        for (var j = 0; j < desiredHeight; ++j) {
-          var colorToUse="#0000FF";
-          switch(testMap[j][i]) {
-            case MAPOBJECTS.AIR.value:
-              colorToUse="#FFFFFF";
+      for (var i = 0; i < numColumns; ++i) {
+        for (var j = 0; j < numRows; ++j) {
+          var colorToUse;
+          switch(myMap[j][i]) {
+            case MAPOBJECTS.AIR:
+              colorToUse=MAPOBJECTS.AIR.color;
               break;
-            case MAPOBJECTS.WALL.value:
-              colorToUse="#000000";
+            case MAPOBJECTS.WALL:
+              colorToUse=MAPOBJECTS.WALL.color;
               break;
-            case MAPOBJECTS.ENTRANCE.value:
-              colorToUse="#FF0000";
+            case MAPOBJECTS.ENTRANCE:
+              colorToUse=MAPOBJECTS.ENTRANCE.color;
               break;
-            case MAPOBJECTS.EXIT.value:
-              colorToUse="#00FF00";
+            case MAPOBJECTS.EXIT:
+              colorToUse=MAPOBJECTS.EXIT.color;
               break;
+			default:
+				//purple is the oops'd color!
+				colorToUse="#FF00FF";
+				break;
           }
-          //document.write(testMap[j][i]+":"+colorToUse+",");
+          //document.write(myMap[j][i]+":"+colorToUse+",");
           ctx.fillStyle=colorToUse;
-          ctx.fillRect(i*gridSize,j*gridSize,gridSize,gridSize);
+          ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
         }
       }
 
