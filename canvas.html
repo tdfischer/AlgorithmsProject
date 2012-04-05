@@ -10,30 +10,35 @@
   <body>
 
     <canvas id="myCanvas" width="1200" height="760">Your browser does not support Canvas</canvas>
+	<br />
 	
     <script type="text/javascript">
 	var numRows = 76;
 	var numColumns = 120;
 	var pixelSize = 10;
 	var mapDensityInPercent = 25;
-	var myMap = generateMap(numColumns, numRows, mapDensityInPercent);
+	//var myMap = generateMap(numColumns, numRows, mapDensityInPercent);
+	var myMap = staticMap();
+	var path = floodFill(getEntrance()[0], getEntrance()[1], []);
+	//myMap = getMap();
+	document.write(path);
       //Canvas example!
 
       //get the canvas 2d stuff
       var c=document.getElementById("myCanvas");
       var ctx=c.getContext("2d");
-      ctx.fillStyle="#FFFFFF";
+      ctx.fillStyle="#FF00FF";
       //begin mapping things!
       //note the ordering. This keeps things aligned with the 2d array
-      for (var i = 0; i < numColumns; ++i) {
-        for (var j = 0; j < numRows; ++j) {
+	  for (var i = 0; i < myMap[0].length; i++) {
+		for (var j = 0; j < myMap.length; j++) {
           var colorToUse;
           switch(myMap[j][i]) {
             case MAPOBJECTS.AIR:
-              colorToUse=MAPOBJECTS.AIR.color;
-              break;
+				colorToUse=MAPOBJECTS.AIR.color;
+				break;
             case MAPOBJECTS.WALL:
-              colorToUse=MAPOBJECTS.WALL.color;
+				colorToUse=MAPOBJECTS.WALL.color;
               break;
             case MAPOBJECTS.ENTRANCE:
               colorToUse=MAPOBJECTS.ENTRANCE.color;
@@ -41,12 +46,15 @@
             case MAPOBJECTS.EXIT:
               colorToUse=MAPOBJECTS.EXIT.color;
               break;
+			case MAPOBJECTS.PATH:
+				colorToUse=MAPOBJECTS.PATH.color;
 			default:
 				//purple is the oops'd color!
 				colorToUse="#FF00FF";
 				break;
           }
-          //document.write(myMap[j][i]+":"+colorToUse+",");
+		  if (myMap[j][i].visited)
+			colorToUse="#FFFFFF";
           ctx.fillStyle=colorToUse;
           ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
         }
