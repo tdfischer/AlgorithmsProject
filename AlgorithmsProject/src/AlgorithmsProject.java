@@ -4,19 +4,19 @@ import javax.swing.JFrame;
 
 
 public class AlgorithmsProject {
+	private static final int OBJECT_WIDTH = 160;
+	private static final int OBJECT_HEIGHT = 96;
+	private static final double WALL_PERCENTAGE = 0.125;
+	private static final int PIXEL_SIZE = 5;
 	
 	public static void main(String[] args) {
-		System.out.println("launching program");
 		JFrame frame = new JFrame();
-		
-		frame.setSize(640,480);
-		MapGenerator mapGen = new MapGenerator(120,90,0.125);
+		frame.setSize(((OBJECT_WIDTH+5)*PIXEL_SIZE),((OBJECT_HEIGHT+10)*PIXEL_SIZE));
+		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
-		MapPanel myMapPanel = new MapPanel(map);
+		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
-		System.out.println("done showing frame");
 	}
 }

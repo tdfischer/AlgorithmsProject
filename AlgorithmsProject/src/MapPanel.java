@@ -12,22 +12,18 @@ public class MapPanel extends Canvas {
 	private static final long serialVersionUID = 1L;
 	private MapObject[][] map;
 	private final static int GRID_SIZE = 5;
-	private List<Point> solutionSet;
 	
+	private int pixels_per_grid = GRID_SIZE;
 	/**
 	 * Creates a new panel with the given map.
 	 * @param map A 2D array of MapObjects to use.
 	 */
-	public MapPanel(MapObject[][] map) {
+	public MapPanel(MapObject[][] map, int pixels_per_grid) {
 		this.map = map.clone();
-	}
-	
-	/**
-	 * Add a list of points showing the solution to the array.
-	 * @param solution The solution set (of points) to display.
-	 */
-	public void addSolution(List<Point> solution) {
-		solutionSet = solution;
+		if (pixels_per_grid == 0)
+			this.pixels_per_grid = GRID_SIZE;
+		else
+			this.pixels_per_grid = pixels_per_grid;
 	}
 	
 	public void update(Graphics g) {
@@ -49,7 +45,7 @@ public class MapPanel extends Canvas {
 				else {
 					imageGraphics.setColor(map[i][j].getColor());
 				}
-				imageGraphics.fillRect(i*GRID_SIZE, j*GRID_SIZE, GRID_SIZE, GRID_SIZE);
+				imageGraphics.fillRect(i*pixels_per_grid, j*pixels_per_grid, pixels_per_grid, pixels_per_grid);
 				
 			}
 		}
