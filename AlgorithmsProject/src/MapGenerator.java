@@ -8,8 +8,9 @@ import java.util.Random;
  */
 public class MapGenerator {
 	
-	MapObject[][] map;
-	Point entrance;
+	private MapObject[][] map;
+	private Point entrance;
+	private Point exit;
 	/**
 	 * Generates a random map to solve with the given width, height, and probability of a wall per block.
 	 * @param width The width of the map.
@@ -59,6 +60,7 @@ public class MapGenerator {
 				else if (!exitAdded) {
 					exitAdded = true;
 					map[x][y] = new ExitObject();
+					exit = new Point(x,y);
 				}
 				else {
 					System.err.println("ZOMG WHAT IS THIS I DON'T EVEN");
@@ -75,5 +77,9 @@ public class MapGenerator {
 	
 	public Point getEntrance() {
 		return entrance;
+	}
+	
+	public Point getExit() {
+		return exit;
 	}
 }
