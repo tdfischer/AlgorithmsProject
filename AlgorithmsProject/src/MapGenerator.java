@@ -25,21 +25,27 @@ public class MapGenerator {
 		//generate the outer walls
 		for (int i = 0; i < map.length; ++i) {
 			map[i][0] = new WallObject();
+			map[i][0].setPoint(new Point(i,0));
 			map[i][map[0].length-1] = new WallObject();
+			map[i][map[0].length-1].setPoint(new Point(i,map[0].length-1));
 		}
 		
 		for (int j = 0; j < map[0].length; ++j) {
 			map[0][j] = new WallObject();
+			map[0][j].setPoint(new Point(0,j));
 			map[map.length-1][j] = new WallObject();
+			map[map.length-1][j].setPoint(new Point(map.length-1,j));
 		}
 		
 		for (int i = 1; i < map.length - 1; ++i) {
 			for (int j = 1; j < map[0].length -1; ++j) {
 				if (random.nextDouble() > probabilityOfWall) {
 					map[i][j] = new AirObject();
+					map[i][j].setPoint(new Point(i,j));
 				}
 				else {
 					map[i][j] = new WallObject();
+					map[i][j].setPoint(new Point(i,j));
 				}
 			}
 		}
@@ -55,14 +61,17 @@ public class MapGenerator {
 				if (!entranceAdded) {
 					entranceAdded = true;
 					map[x][y] = new EntranceObject();
+					map[x][y].setPoint(new Point(x,y));
 					entrance = new Point(x,y);
 				}
 				else if (!exitAdded) {
 					exitAdded = true;
 					map[x][y] = new ExitObject();
+					map[x][y].setPoint(new Point(x,y));
 					exit = new Point(x,y);
 				}
 				else {
+					//this shouldn't happen ever ever ever.
 					System.err.println("ZOMG WHAT IS THIS I DON'T EVEN");
 				}
 			}

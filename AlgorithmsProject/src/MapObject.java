@@ -13,10 +13,19 @@ public class MapObject {
 	protected boolean isWall;
 	protected boolean isVisited;
 	protected Color color = Color.MAGENTA;
+	protected Point location;
 	
 	public MapObject() {
 		isPathable = false;
 		name = "MapObject";
+	}
+	
+	public void setPoint(Point p) {
+		location = p;
+	}
+	
+	public Point getPoint() {
+		return location;
 	}
 	
 	/**
