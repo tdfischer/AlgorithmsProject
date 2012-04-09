@@ -1,10 +1,21 @@
 import java.util.Random;
 
 
+/**
+ * The generator class to create random and predefined maps.
+ * @author Ian Palencar
+ *
+ */
 public class MapGenerator {
 	
 	MapObject[][] map;
 	Point entrance;
+	/**
+	 * Generates a random map to solve with the given width, height, and probability of a wall per block.
+	 * @param width The width of the map.
+	 * @param height The height of the map.
+	 * @param probabilityOfWall The chance that a wall will be there or not (between 0 and 1).
+	 */
 	public MapGenerator(int width, int height, double probabilityOfWall) {
 		
 		map = new MapObject[width][height];
@@ -55,6 +66,8 @@ public class MapGenerator {
 			}
 		}
 	}
+	
+	//TODO: constructor that creates a preset map from a given file or resource name.
 	
 	public MapObject[][] getMap() {
 		return map;

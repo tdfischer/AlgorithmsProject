@@ -11,10 +11,18 @@ public class MapPanel extends Canvas {
 	private final static int GRID_SIZE = 5;
 	private List<Point> solutionSet;
 	
+	/**
+	 * Creates a new panel with the given map.
+	 * @param map A 2D array of MapObjects to use.
+	 */
 	public MapPanel(MapObject[][] map) {
 		this.map = map.clone();
 	}
 	
+	/**
+	 * Add a list of points showing the solution to the array.
+	 * @param solution The solution set (of points) to display.
+	 */
 	public void addSolution(List<Point> solution) {
 		solutionSet = solution;
 	}
