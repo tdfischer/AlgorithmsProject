@@ -9,14 +9,29 @@
 
   <body>
 
-    <canvas id="myCanvas" width="1200" height="760">Your browser does not support Canvas</canvas>
-	
+    <canvas id="myCanvas" width="1000" height="600">Your browser does not support Canvas</canvas>
+    <br />	
     <script type="text/javascript">
 	var numRows = 96;
 	var numColumns = 192;
 	var pixelSize = 5;
-	var mapDensityInPercent = 25;
+	var mapDensityInPercent = 35;
 	var myMap = generateMap(numColumns, numRows, mapDensityInPercent);
+  var path = floodFill(getEntrance()[0], getEntrance()[1], Array(), myMap);
+  
+  var finalPath = Array();
+
+  while (path != null && path.length > 0) {
+
+    var d = path.pop();
+
+    if (d !== null)
+      finalPath.push(d);
+  }
+
+  for (var q in finalPath) {
+    document.write(q[0]+","+q[1]+":");
+  }
       //Canvas example!
 
       //get the canvas 2d stuff
@@ -28,18 +43,21 @@
       for (var i = 0; i < numColumns; ++i) {
         for (var j = 0; j < numRows; ++j) {
           var colorToUse;
-          switch(myMap[j][i]) {
-            case MAPOBJECTS.AIR:
+          switch(myMap[j][i].value) {
+            case MAPOBJECTS.AIR.value:
               colorToUse=MAPOBJECTS.AIR.color;
               break;
-            case MAPOBJECTS.WALL:
+            case MAPOBJECTS.WALL.value:
               colorToUse=MAPOBJECTS.WALL.color;
               break;
-            case MAPOBJECTS.ENTRANCE:
+            case MAPOBJECTS.ENTRANCE.value:
               colorToUse=MAPOBJECTS.ENTRANCE.color;
               break;
-            case MAPOBJECTS.EXIT:
+            case MAPOBJECTS.EXIT.value:
               colorToUse=MAPOBJECTS.EXIT.color;
+              break;
+            case MAPOBJECTS.PATH.value:
+              colorToUse=MAPOBJECTS.PATH.color;
               break;
 			default:
 				//purple is the oops'd color!
@@ -47,11 +65,14 @@
 				break;
           }
           //document.write(myMap[j][i]+":"+colorToUse+",");
+          if (myMap[j][i].visited)
+            colorToUse="#FFFFFF";
           ctx.fillStyle=colorToUse;
           ctx.fillRect(i*pixelSize,j*pixelSize,pixelSize,pixelSize);
         }
       }
 
+  document.write(path);
     </script>
   </body>
 </html>
