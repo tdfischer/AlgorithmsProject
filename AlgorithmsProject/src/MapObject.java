@@ -12,7 +12,7 @@ public class MapObject {
 	protected String name;
 	protected boolean isWall;
 	protected boolean isVisited;
-	protected Color color = Color.MAGENTA;
+	protected Color color = new Color(255, 0, 255);
 	protected Point location;
 	
 	public MapObject() {

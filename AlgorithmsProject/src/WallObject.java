@@ -10,7 +10,7 @@ public class WallObject extends MapObject {
 	public WallObject() {
 		isPathable = false;
 		name = "WallObject";
-		color = Color.black;
+		color = new Color(63, 63, 63);
 	}
 
 }

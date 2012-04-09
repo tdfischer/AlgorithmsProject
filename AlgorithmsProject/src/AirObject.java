@@ -10,7 +10,7 @@ public class AirObject extends MapObject {
 	public AirObject() {
 		isPathable = true;
 		name = "AirObject";
-		color = Color.white;
+		color = new Color(208, 208, 189);
 	}
 }
 

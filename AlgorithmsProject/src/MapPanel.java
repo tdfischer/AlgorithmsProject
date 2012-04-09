@@ -1,7 +1,10 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferStrategy;
 import java.util.List;
 
 public class MapPanel extends Canvas {
@@ -28,31 +31,28 @@ public class MapPanel extends Canvas {
 	}
 	
 	public void update(Graphics g) {
-		super.update(g);
+		paint(g);
 	}
 	
 	public void paint(Graphics g) {
-		super.paint(g);
+		Image image = createImage(this.getSize().width, this.getSize().height);
+		Graphics imageGraphics = image.getGraphics();
 		
-		Graphics2D g2 = (Graphics2D)g;
-		
+		imageGraphics.setColor(getBackground());
+		imageGraphics.fillRect(0, 0, this.getSize().width, this.getSize().height);
+		imageGraphics.setColor(getForeground());
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[0].length; ++j) {
 				if (map[i][j].isVisited()) {
-					g2.setColor(Color.blue);
+					imageGraphics.setColor(Color.blue);
 				}
 				else {
-					g2.setColor(map[i][j].getColor());
+					imageGraphics.setColor(map[i][j].getColor());
 				}
-				g2.fillRect(i*GRID_SIZE, j*GRID_SIZE, GRID_SIZE, GRID_SIZE);
+				imageGraphics.fillRect(i*GRID_SIZE, j*GRID_SIZE, GRID_SIZE, GRID_SIZE);
+				
 			}
 		}
-		
-		g2.setColor(Color.yellow);
-		if (solutionSet == null)
-			return;
-		for (Point p : solutionSet) {
-			g2.fillRect(p.x*GRID_SIZE, p.y*GRID_SIZE, GRID_SIZE, GRID_SIZE);
-		}
+		g.drawImage(image, 0, 0, this);
 	}
 }
