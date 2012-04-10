@@ -31,24 +31,17 @@ public class MapPanel extends Canvas {
 	}
 	
 	public void paint(Graphics g) {
-		Image image = createImage(this.getSize().width, this.getSize().height);
-		Graphics imageGraphics = image.getGraphics();
-		
-		imageGraphics.setColor(getBackground());
-		imageGraphics.fillRect(0, 0, this.getSize().width, this.getSize().height);
-		imageGraphics.setColor(getForeground());
 		for (int i = 0; i < map.length; ++i) {
 			for (int j = 0; j < map[0].length; ++j) {
 				if (map[i][j].isVisited()) {
-					imageGraphics.setColor(Color.blue);
+					g.setColor(Color.blue);
 				}
 				else {
-					imageGraphics.setColor(map[i][j].getColor());
+					g.setColor(map[i][j].getColor());
 				}
-				imageGraphics.fillRect(i*pixels_per_grid, j*pixels_per_grid, pixels_per_grid, pixels_per_grid);
+				g.fillRect(i*pixels_per_grid, j*pixels_per_grid, pixels_per_grid, pixels_per_grid);
 				
 			}
 		}
-		g.drawImage(image, 0, 0, this);
 	}
 }
