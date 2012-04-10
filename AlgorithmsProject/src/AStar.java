@@ -41,11 +41,11 @@ public abstract class AStar {
 			closedSet.add(current);
 			ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
 			// Add the four possible neighbors to the neighbors list to be processed.
-			if (current.location.x - 1 > 0)
+			if (current.location.x  > 0)
 				neighbors.add(this.map[current.location.x - 1][current.location.y]);
 			if (current.location.x + 1 < MAP_LENGTH)
 				neighbors.add(this.map[current.location.x + 1][current.location.y]);
-			if (current.location.y - 1 > 0)
+			if (current.location.y  > 0)
 				neighbors.add(this.map[current.location.x][current.location.y - 1]);
 			if (current.location.y + 1 < MAP_WIDTH)
 				neighbors.add(this.map[current.location.x][current.location.y + 1]);
