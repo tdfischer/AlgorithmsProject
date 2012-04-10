@@ -1,5 +1,4 @@
-
-
+import java.util.List;
 import javax.swing.JFrame;
 
 
@@ -15,7 +14,13 @@ public class AlgorithmsProject {
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
     AStar myAStar = new AStar(map, new TestHeuristic());
-    System.out.println("Path found by A*: "+myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]));
+    List<MapObject> resultList = myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]);
+    if (resultList != null) {
+      for (MapObject m : resultList) {
+        System.out.println("List point: "+m);
+        map[m.location.x][m.location.y].visit();
+      }
+    }
 		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -21,6 +21,10 @@ public class Point {
     x = o.x;
     y = o.y;
   }
+
+  public int distance(Point o) {
+    return (int)Math.floor(Math.sqrt(Math.pow((x+o.x),2)+Math.pow((y+o.y),2)));
+  }
   
   public String toString() {
   	return "["+this.getClass()+":"+x+","+y+"]";

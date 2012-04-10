@@ -49,6 +49,10 @@ public class MapObject implements Comparable<MapObject> {
 	public boolean isVisited() {
 		return isVisited;
 	}
+
+  public boolean isWall() {
+    return isWall;
+  }
 	
 	public Color getColor() {
 		return color;
@@ -60,6 +64,7 @@ public class MapObject implements Comparable<MapObject> {
 				+(isPathable?"YES":"NO")
 				+":isWall-"
 				+(isWall?"YES":"NO")
+        +"location: ("+location.x+","+location.y+")"
 				+"]";
 	}
 

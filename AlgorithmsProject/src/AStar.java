@@ -41,13 +41,13 @@ public class AStar {
 			closedSet.add(current);
 			ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
 			// Add the four possible neighbors to the neighbors list to be processed.
-			if (current.location.x  > 0)
+			if (current.location.x - 1  > 0 && !map[current.location.x-1][current.location.y].isWall())
 				neighbors.add(this.map[current.location.x - 1][current.location.y]);
-			if (current.location.x + 1 < MAP_LENGTH-1)
+			if (current.location.x + 1 < MAP_LENGTH-1 && !map[current.location.x+1][current.location.y].isWall())
 				neighbors.add(this.map[current.location.x + 1][current.location.y]);
-			if (current.location.y  > 0)
+			if (current.location.y - 1  > 0 && !map[current.location.x][current.location.y-1].isWall())
 				neighbors.add(this.map[current.location.x][current.location.y - 1]);
-			if (current.location.y + 1 < MAP_WIDTH-1)
+			if (current.location.y + 1 < MAP_WIDTH-1 && !map[current.location.x][current.location.y+1].isWall())
 				neighbors.add(this.map[current.location.x][current.location.y + 1]);
 			// Check the neighbors for viable path.
 			for (MapObject neighbor : neighbors) {
