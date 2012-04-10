@@ -91,6 +91,11 @@ public class AStar {
         return null;
     }
 
+    /**
+
+        @param came_from
+        @param current_node
+      */
     private ArrayList<MapObject> reconstruct_path(MapObject[][] came_from, MapObject current_node) {
         if (came_from[current_node.location.x][current_node.location.y] != null) {
             ArrayList<MapObject> p = reconstruct_path(came_from, came_from[current_node.location.x][current_node.location.y]);

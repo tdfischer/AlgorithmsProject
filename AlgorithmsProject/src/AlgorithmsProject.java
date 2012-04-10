@@ -14,12 +14,21 @@ public class AlgorithmsProject {
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
     AStar myAStar = new AStar(map, new TestHeuristic());
-    List<MapObject> resultList = myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]);
-    if (resultList != null) {
-      for (MapObject m : resultList) {
-        System.out.println("List point: "+m);
-        map[m.location.x][m.location.y].visit();
+
+    List<MapObject> resultList = null;
+
+    while (resultList == null) {
+      resultList = myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]);
+      if (resultList == null) {
+        System.err.println("No path found! Regenerating...");
+        mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT, WALL_PERCENTAGE);
+        map = mapGen.getMap();
+        myAStar = new AStar(map, new TestHeuristic());
       }
+    }
+    for (MapObject m : resultList) {
+      System.out.println("List point: "+m);
+      map[m.location.x][m.location.y].visit();
     }
 		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);
 		frame.add(myMapPanel);
