@@ -2,16 +2,34 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.HashSet;
 
+/**
+    Provides the basic A* search, with a modularized heuristic.
+    See Heuristic.java to implement heuristic used by the A* search.
+    @author Robert Studenic
+  */
 public class AStar {
 
     private MapObject[][] map;
     private Heuristic heuristic;
 
+    /**
+        A* Constructor
+
+        @param map 2D array of MapObject
+        @param heuristic Heurstic we want to use for the algorithm.
+      */
     public AStar(MapObject[][] map, Heuristic heuristic) {
         this.map = map;
         this.heuristic = heuristic;
     }
 
+    /**
+        Search the map to find the exit from the start.
+
+        @param start The MapObject of the starting location.
+        @param end The MapObject of the ending location.
+        @return The path found, or null if no path.
+      */
     public ArrayList<MapObject> search(MapObject start, MapObject end) {
         final int MAP_WIDTH = this.map.length;
         final int MAP_HEIGHT = this.map[0].length;
