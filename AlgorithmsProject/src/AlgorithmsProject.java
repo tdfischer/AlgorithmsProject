@@ -14,6 +14,8 @@ public class AlgorithmsProject {
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
+    AStar myAStar = new AStar(map, new TestHeuristic());
+    System.out.println("Path found by A*: "+myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]));
 		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

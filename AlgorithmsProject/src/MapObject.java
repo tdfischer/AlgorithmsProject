@@ -6,7 +6,7 @@ import java.awt.Color;
  * @author Ian Palencar
  *
  */
-public class MapObject {
+public class MapObject implements Comparable<MapObject> {
 	
 	protected boolean isPathable;
 	protected String name;
@@ -14,6 +14,9 @@ public class MapObject {
 	protected boolean isVisited;
 	protected Color color = new Color(255, 0, 255);
 	protected Point location;
+  public int g_score = Integer.MAX_VALUE;
+  public int h_score = Integer.MAX_VALUE;
+  public int f_score = Integer.MAX_VALUE;
 	
 	public MapObject() {
 		isPathable = false;
@@ -59,4 +62,8 @@ public class MapObject {
 				+(isWall?"YES":"NO")
 				+"]";
 	}
+
+  public int compareTo(MapObject o) {
+    return f_score - o.f_score;
+  }
 }

@@ -2,18 +2,21 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.HashSet;
 
-public abstract class AStar {
+public class AStar {
 
 	private MapObject[][] map;
+  private Heuristic heuristic;
 
-	public AStar(MapObject[][] map) {
+	public AStar(MapObject[][] map, Heuristic heuristic) {
 		this.map = map;
+    this.heuristic = heuristic;
 	}
 
-	public ArrayList<MapObject> search(MapObject start, MapObject end, Point startPoint, Point endPoint) {
+	public ArrayList<MapObject> search(MapObject start, MapObject end) {
 		final int MAP_LENGTH = this.map.length;
 		final int MAP_WIDTH = this.map[0].length;
-
+    Point startPoint = start.getPoint();
+    Point endPoint = end.getPoint();
 		// The set of nodes already evalutated.
 		HashSet<MapObject> closedSet = new HashSet<MapObject>();
 		// The set of tentative ndoes to be evaluated, initially containing the start node.
@@ -22,16 +25,13 @@ public abstract class AStar {
 		// The path of the navigated nodes.
 		MapObject[][] came_from = new MapObject[MAP_LENGTH][MAP_WIDTH];
 
-		// Cost from the start along the best known path.
-		int[][] g_score = new int[MAP_LENGTH][MAP_WIDTH];
-		// Cost guessed from the heuristic.
-		int[][] h_score = new int[MAP_LENGTH][MAP_WIDTH];
-		// Estimated total cost from start to goal through y.
-		int[][] f_score = new int[MAP_LENGTH][MAP_WIDTH];
+		// g_score: Cost from the start along the best known path.
+		// h_score: Cost guessed from the heuristic.
+		// f_score: Estimated total cost from start to goal through y.
 
-		g_score[startPoint.x][startPoint.y] = 0;
-		h_score[startPoint.x][startPoint.y] = this.heuristic(start, end); 
-		f_score[startPoint.x][startPoint.y] = g_score[startPoint.x][startPoint.y] + h_score[startPoint.x][startPoint.y];
+    map[startPoint.x][startPoint.y].g_score = 0;
+    map[startPoint.x][startPoint.y].h_score = heuristic.calculate(start, end);
+    map[startPoint.x][startPoint.y].f_score = map[startPoint.x][startPoint.y].g_score + map[startPoint.x][startPoint.y].h_score;
 
 		while (openSet.size() > 0) {
 			MapObject current = openSet.poll();
@@ -56,42 +56,33 @@ public abstract class AStar {
 				// If we've already processed that neighbor, check others.
 				if (closedSet.contains(neighbor)) 
 					continue;
-				int tentative_g_score = g_score[current.location.x][current.location.y] + 1;
+				int tentative_g_score = map[current.location.x][current.location.y].g_score + 1;
 				// If we haven't processed that neighbor, add it to be processed.	
 				if (!openSet.contains(neighbor)) {
 					openSet.add(neighbor);
-					h_score[neighbor.location.x][neighbor.location.y] = heuristic(neighbor, end);
-				}
-				else if (tentative_g_score < g_score[neighbor.location.x][neighbor.location.y])
-					tentative_is_better = true;
-				else
-					tentative_is_better = false;
+				  map[neighbor.location.x][neighbor.location.y].h_score = heuristic.calculate(start, end);
+        }
+        boolean tenative_is_better = (tentative_g_score < map[neighbor.location.x][neighbor.location.y].g_score);
+        if (tentative_is_better) {
+          came_from[neighbor.location.x][neighbor.location.y] = current;
+          map[neighbor.location.x][neighbor.location.y].g_score = tentative_g_score;
+          map[neighbor.location.x][neighbor.location.y].f_score = map[neighbor.location.x][neighbor.location.y].g_score + map[neighbor.location.x][neighbor.location.y].h_score;
+         }
+      }
+    }
+    return null;
+  }
 
-				if (tentative_is_better) {
-					came_from[neighbor.location.x][neighbor.location.y] = current;
-					g_score[neighbor.location.x][neighbor.location.y] = tentative_g_score;
-					f_score[neighbor.location.x][neighbor.location.y] = g_score[neighbor.location.x][neighbor.location.y] + h_score[neighbor.location.x][neighbor.location.y];
-				}
-			} 
-
-		}
-		return null;
-	}
-
-	private ArrayList<MapObject> reconstruct_path(MapObject[][] came_from, MapObject current_node) {
-		if (came_from[current_node.location.x][current_node.location.y] != null) {
-			ArrayList<MapObject> p = reconstruct_path(came_from, came_from[current_node.location.x][current_node.location.y]);
-			p.add(current_node);
-			return p;
-		}
-		else {
-			ArrayList<MapObject> p = new ArrayList<MapObject>();
-			p.add(current_node);
-			return p;
-		}
-	}
-
-	// TODO : PriorityQueue Comparator.
-
-	abstract int heuristic(MapObject start, MapObject end);
+  private ArrayList<MapObject> reconstruct_path(MapObject[][] came_from, MapObject current_node) {
+    if (came_from[current_node.location.x][current_node.location.y] != null) {
+      ArrayList<MapObject> p = reconstruct_path(came_from, came_from[current_node.location.x][current_node.location.y]);
+      p.add(current_node);
+      return p;
+    }
+    else {
+      ArrayList<MapObject> p = new ArrayList<MapObject>();
+      p.add(current_node);
+      return p;
+    }
+  }
 }
