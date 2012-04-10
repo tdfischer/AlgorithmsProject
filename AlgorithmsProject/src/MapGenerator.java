@@ -22,6 +22,7 @@ public class MapGenerator {
 		map = new MapObject[width][height];
 		Random random = new Random();
 		
+    System.out.println("Generating outer walls...");
 		//generate the outer walls
 		for (int i = 0; i < map.length; ++i) {
 			map[i][0] = new WallObject();
@@ -36,7 +37,7 @@ public class MapGenerator {
 			map[map.length-1][j] = new WallObject();
 			map[map.length-1][j].setPoint(new Point(map.length-1,j));
 		}
-		
+		System.out.println("Generating random data...");
 		for (int i = 1; i < map.length - 1; ++i) {
 			for (int j = 1; j < map[0].length -1; ++j) {
 				if (random.nextDouble() > probabilityOfWall) {
@@ -47,13 +48,28 @@ public class MapGenerator {
 					map[i][j] = new WallObject();
 					map[i][j].setPoint(new Point(i,j));
 				}
+        System.out.println("Generated new "+map[i][j]);
 			}
 		}
 		
-		boolean entranceAdded = false;
-		boolean exitAdded = false;
-		
-		while (!entranceAdded || !exitAdded) {
+	
+
+  //add the entrance:
+    Point p = generateEntranceOrExit(random);
+    map[p.x][p.y] = new EntranceObject();
+    map[p.x][p.y].setPoint(new Point(p.x,p.y));
+    entrance = new Point(p.x,p.y);
+    System.out.println("Added new entrance at "+p.x+","+p.y);
+    //add the exit
+    p = generateEntranceOrExit(random);
+    map[p.x][p.y] = new ExitObject();
+    map[p.x][p.y].setPoint(new Point(p.x,p.y));
+    exit = new Point(p.x,p.y);
+    System.out.println("Added new exit at "+p.x+","+p.y);
+
+
+
+		/*while (!entranceAdded || !exitAdded) {
 			int x = random.nextInt(width);
 			int y = random.nextInt(height);
 			
@@ -75,11 +91,34 @@ public class MapGenerator {
 					System.err.println("ZOMG WHAT IS THIS I DON'T EVEN");
 				}
 			}
-		}
+		}*/
 	}
 	
 	//TODO: constructor that creates a preset map from a given file or resource name.
-	
+
+  private Point generateEntranceOrExit(Random r) {
+    int x = 0;
+    int y = 0;
+
+    if (Math.floor(r.nextDouble()*2) > 0) {
+      //set the X value to 0 or length, then set Y to random.
+      if (Math.floor(r.nextDouble()*2) > 0)
+        x = map.length-1;
+      else
+        x = 0;
+
+      y = r.nextInt(map[0].length-1);
+    }
+    else {
+      if (Math.floor(r.nextDouble()*2) > 0)
+        y = map[0].length-1;
+      else
+        y = 0;
+
+      x = r.nextInt(map.length-1);
+    }
+    return new Point(x,y);
+  }  
 	public MapObject[][] getMap() {
 		return map;
 	}
