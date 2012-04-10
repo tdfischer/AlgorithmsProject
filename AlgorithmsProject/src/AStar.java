@@ -13,8 +13,8 @@ public class AStar {
     }
 
     public ArrayList<MapObject> search(MapObject start, MapObject end) {
-        final int MAP_LENGTH = this.map.length;
-        final int MAP_WIDTH = this.map[0].length;
+        final int MAP_WIDTH = this.map.length;
+        final int MAP_HEIGHT = this.map[0].length;
         Point startPoint = start.getPoint();
         Point endPoint = end.getPoint();
         // The set of nodes already evalutated.
@@ -23,7 +23,7 @@ public class AStar {
         PriorityQueue<MapObject> openSet = new PriorityQueue<MapObject>();
         openSet.add(start);
         // The path of the navigated nodes.
-        MapObject[][] came_from = new MapObject[MAP_LENGTH][MAP_WIDTH];
+        MapObject[][] came_from = new MapObject[MAP_WIDTH][MAP_HEIGHT];
 
         // g_score: Cost from the start along the best known path.
         // h_score: Cost guessed from the heuristic.
@@ -43,11 +43,11 @@ public class AStar {
             // Add the four possible neighbors to the neighbors list to be processed.
             if (current.location.x - 1  >= 0 && !map[current.location.x-1][current.location.y].isWall())
                 neighbors.add(this.map[current.location.x - 1][current.location.y]);
-            if (current.location.x + 1 < MAP_LENGTH-1 && !map[current.location.x+1][current.location.y].isWall())
+            if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
                 neighbors.add(this.map[current.location.x + 1][current.location.y]);
             if (current.location.y - 1  >= 0 && !map[current.location.x][current.location.y-1].isWall())
                 neighbors.add(this.map[current.location.x][current.location.y - 1]);
-            if (current.location.y + 1 < MAP_WIDTH-1 && !map[current.location.x][current.location.y+1].isWall())
+            if (current.location.y + 1 < MAP_HEIGHT && !map[current.location.x][current.location.y+1].isWall())
                 neighbors.add(this.map[current.location.x][current.location.y + 1]);
             // Check the neighbors for viable path.
             for (MapObject neighbor : neighbors) {
