@@ -53,6 +53,7 @@ public class AStar {
 
         while (openSet.size() > 0) {
             MapObject current = openSet.poll();
+            current.consider();
             if (current == end)
                 return reconstruct_path(came_from, came_from[end.location.x][end.location.y]);
 

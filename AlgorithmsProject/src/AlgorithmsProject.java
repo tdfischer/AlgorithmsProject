@@ -13,7 +13,7 @@ public class AlgorithmsProject {
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
-    AStar myAStar = new AStar(map, new TestHeuristic());
+    AStar myAStar = new AStar(map, new ManhattanHeuristic());
 
     List<MapObject> resultList = null;
 
@@ -23,7 +23,7 @@ public class AlgorithmsProject {
         System.err.println("No path found! Regenerating...");
         mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT, WALL_PERCENTAGE);
         map = mapGen.getMap();
-        myAStar = new AStar(map, new TestHeuristic());
+        myAStar = new AStar(map, new ManhattanHeuristic());
       }
     }
     for (MapObject m : resultList) {

@@ -35,6 +35,11 @@ public class MapPanel extends Canvas {
   		for (int j = 0; j < map[0].length; ++j) {
   		  g.setColor(map[i][j].getColor());
   			g.fillRect(i*pixels_per_grid, j*pixels_per_grid, pixels_per_grid, pixels_per_grid);
+        //the following is to show the open set. Slows down rendering for now.
+        /*if (map[i][j].isConsidered()) {
+          g.setColor(new Color(255,255,0,96));
+  			  g.fillRect(i*pixels_per_grid, j*pixels_per_grid, pixels_per_grid, pixels_per_grid);
+        }*/
         if (map[i][j].isVisited()) {
           g.setColor(new Color(0,0,255,96));
           g.fillRect(i*pixels_per_grid, j*pixels_per_grid, pixels_per_grid, pixels_per_grid);

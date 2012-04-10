@@ -11,7 +11,8 @@ public class MapObject implements Comparable<MapObject> {
 	protected boolean isPathable;
 	protected String name;
 	protected boolean isWall;
-	protected boolean isVisited;
+	protected boolean isVisited = false;
+  protected boolean isConsidered = false;
 	protected Color color = new Color(255, 0, 255);
 	protected Point location;
   public int g_score = Integer.MAX_VALUE;
@@ -38,6 +39,17 @@ public class MapObject implements Comparable<MapObject> {
 	public boolean isPathable() {
 		return isPathable;
 	}
+
+  public void consider() {
+    isConsidered = true;
+  }
+  /**
+    * Returns true if a node was considered (compared at all in the open set)
+    * @returns true if considered
+    */
+  public boolean isConsidered() {
+    return isConsidered;
+  }
 	
 	/**
 	 * Visit an object.
