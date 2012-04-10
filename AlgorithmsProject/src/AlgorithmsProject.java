@@ -11,7 +11,7 @@ public class AlgorithmsProject {
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
-		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+1)*PIXEL_SIZE));
+		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
 		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);

@@ -4,20 +4,25 @@
  *
  */
 public class Point {
-	int x;
-	int y;
-	
-	/**
-	 * Create a point with the given coordinates.
-	 * @param x
-	 * @param y
-	 */
-	public Point(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	public String toString() {
-		return "["+this.getClass()+":"+x+","+y+"]";
-	}
+  int x;
+  int y;
+  
+  /**
+   * Create a point with the given coordinates.
+   * @param x
+   * @param y
+   */
+  public Point(int x, int y) {
+  	this.x = x;
+  	this.y = y;
+  }
+
+  public Point(Point o) {
+    x = o.x;
+    y = o.y;
+  }
+  
+  public String toString() {
+  	return "["+this.getClass()+":"+x+","+y+"]";
+  }
 }

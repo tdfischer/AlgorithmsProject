@@ -43,11 +43,11 @@ public abstract class AStar {
 			// Add the four possible neighbors to the neighbors list to be processed.
 			if (current.location.x  > 0)
 				neighbors.add(this.map[current.location.x - 1][current.location.y]);
-			if (current.location.x + 1 < MAP_LENGTH)
+			if (current.location.x + 1 < MAP_LENGTH-1)
 				neighbors.add(this.map[current.location.x + 1][current.location.y]);
 			if (current.location.y  > 0)
 				neighbors.add(this.map[current.location.x][current.location.y - 1]);
-			if (current.location.y + 1 < MAP_WIDTH)
+			if (current.location.y + 1 < MAP_WIDTH-1)
 				neighbors.add(this.map[current.location.x][current.location.y + 1]);
 			// Check the neighbors for viable path.
 			for (MapObject neighbor : neighbors) {

@@ -57,14 +57,14 @@ public class MapGenerator {
   //add the entrance:
     Point p = generateEntranceOrExit(random);
     map[p.x][p.y] = new EntranceObject();
-    map[p.x][p.y].setPoint(new Point(p.x,p.y));
-    entrance = new Point(p.x,p.y);
+    map[p.x][p.y].setPoint(new Point(p));
+    entrance = new Point(p);
     System.out.println("Added new entrance at "+p.x+","+p.y);
     //add the exit
     p = generateEntranceOrExit(random);
     map[p.x][p.y] = new ExitObject();
-    map[p.x][p.y].setPoint(new Point(p.x,p.y));
-    exit = new Point(p.x,p.y);
+    map[p.x][p.y].setPoint(new Point(p));
+    exit = new Point(p);
     System.out.println("Added new exit at "+p.x+","+p.y);
   }
   
