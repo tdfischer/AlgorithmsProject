@@ -60,14 +60,14 @@ public class AStar {
             closedSet.add(current);
             ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
             // Add the four possible neighbors to the neighbors list to be processed.
-            if (current.location.x - 1  >= 0 && !map[current.location.x-1][current.location.y].isWall())
-                neighbors.add(this.map[current.location.x - 1][current.location.y]);
-            if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
-                neighbors.add(this.map[current.location.x + 1][current.location.y]);
             if (current.location.y - 1  >= 0 && !map[current.location.x][current.location.y-1].isWall())
                 neighbors.add(this.map[current.location.x][current.location.y - 1]);
             if (current.location.y + 1 < MAP_HEIGHT && !map[current.location.x][current.location.y+1].isWall())
                 neighbors.add(this.map[current.location.x][current.location.y + 1]);
+            if (current.location.x - 1  >= 0 && !map[current.location.x-1][current.location.y].isWall())
+                neighbors.add(this.map[current.location.x - 1][current.location.y]);
+            if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
+                neighbors.add(this.map[current.location.x + 1][current.location.y]);
             // Check the neighbors for viable path.
             for (MapObject neighbor : neighbors) {
                 boolean tentative_is_better = true;
@@ -75,13 +75,13 @@ public class AStar {
                 // If we've already processed that neighbor, check others.
                 if (closedSet.contains(neighbor)) 
                     continue;
-                int tentative_g_score = map[current.location.x][current.location.y].g_score + 1;
+                double tentative_g_score = map[current.location.x][current.location.y].g_score + 1;
                 // If we haven't processed that neighbor, add it to be processed.	
                 if (!openSet.contains(neighbor)) {
                     openSet.add(neighbor);
                     map[neighbor.location.x][neighbor.location.y].h_score = heuristic.calculate(start, end);
                 }
-                boolean tenative_is_better = (tentative_g_score < map[neighbor.location.x][neighbor.location.y].g_score);
+                tentative_is_better = (tentative_g_score < map[neighbor.location.x][neighbor.location.y].g_score);
                 if (tentative_is_better) {
                     came_from[neighbor.location.x][neighbor.location.y] = current;
                     map[neighbor.location.x][neighbor.location.y].g_score = tentative_g_score;
