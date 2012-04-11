@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class AlgorithmsProject {
 	private static final int OBJECT_WIDTH = 160;
 	private static final int OBJECT_HEIGHT = 90;
-	private static final double WALL_PERCENTAGE = 0.125;
+	private static final double WALL_PERCENTAGE = 0.0;
 	private static final int PIXEL_SIZE = 5;
 	
 	public static void main(String[] args) {
@@ -13,7 +13,8 @@ public class AlgorithmsProject {
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
-    AStar myAStar = new AStar(map, new ManhattanHeuristic());
+    //AStar myAStar = new AStar(map, new ManhattanHeuristic());
+    AStar myAStar = new AStar(map, new DijkstraHeuristic());
 
     List<MapObject> resultList = null;
 
@@ -23,7 +24,8 @@ public class AlgorithmsProject {
         System.err.println("No path found! Regenerating...");
         mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT, WALL_PERCENTAGE);
         map = mapGen.getMap();
-        myAStar = new AStar(map, new ManhattanHeuristic());
+        //myAStar = new AStar(map, new ManhattanHeuristic());
+        myAStar = new AStar(map, new DijkstraHeuristic());
       }
     }
     for (MapObject m : resultList) {

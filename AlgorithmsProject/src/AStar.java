@@ -70,7 +70,7 @@ public class AStar {
                 neighbors.add(this.map[current.location.x + 1][current.location.y]);
             // Check the neighbors for viable path.
             for (MapObject neighbor : neighbors) {
-                boolean tentative_is_better = true;
+                boolean tentative_is_better = false;
 
                 // If we've already processed that neighbor, check others.
                 if (closedSet.contains(neighbor)) 
@@ -93,9 +93,11 @@ public class AStar {
     }
 
     /**
+        Reconstructs the optimal path from the end node to the start node.
 
         @param came_from
         @param current_node
+        @return Path to from the start to the end.
       */
     private ArrayList<MapObject> reconstruct_path(MapObject[][] came_from, MapObject current_node) {
         if (came_from[current_node.location.x][current_node.location.y] != null) {

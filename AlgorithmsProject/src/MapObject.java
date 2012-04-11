@@ -15,9 +15,9 @@ public class MapObject implements Comparable<MapObject> {
   protected boolean isConsidered = false;
 	protected Color color = new Color(255, 0, 255);
 	protected Point location;
-  public int g_score = Integer.MAX_VALUE;
-  public int h_score = Integer.MAX_VALUE;
-  public int f_score = Integer.MAX_VALUE;
+  public double g_score = Double.MAX_VALUE;
+  public double h_score = Double.MAX_VALUE;
+  public double f_score = Double.MAX_VALUE;
 	
 	public MapObject() {
 		isPathable = false;
@@ -81,6 +81,12 @@ public class MapObject implements Comparable<MapObject> {
 	}
 
   public int compareTo(MapObject o) {
-    return f_score - o.f_score;
+    if (f_score < o.f_score) {
+        return -1;
+    }
+    if (f_score > o.f_score) {
+        return 1;
+    }
+    return 0;
   }
 }
