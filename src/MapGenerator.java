@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.io.File;
+import java.util.Scanner;
 
 
 /**
@@ -11,6 +13,77 @@ public class MapGenerator {
   private MapObject[][] map;
   private Point entrance;
   private Point exit;
+  private static final String DELIMITER = ",";
+  /**
+	 * Generates a map based on a given file. The file format is CSV (for easy hand-editing) and takes the form:
+	 * a,b #first row, dimensions
+	 * c,d,<name> #axb rows, uses the getName() property of the MapObjects.
+	 * @param f The file to load from (should be plaintext unless you want Bad Things.
+	 */
+	public MapGenerator(File f) {
+		
+		Scanner in;
+		try {
+			in = new Scanner(f);
+			
+			String[] lineArgs;
+			
+			lineArgs = in.nextLine().split(DELIMITER);
+			
+			int width = Integer.parseInt(lineArgs[0]);
+			int height = Integer.parseInt(lineArgs[1]);
+			
+			map = new MapObject[width][height];
+			int x = 0;
+			int y = 0;
+			MapObject mapObj;
+			while (in.hasNextLine()) {
+				lineArgs = in.nextLine().split(DELIMITER);
+				if (lineArgs.length < 3)
+					continue;
+				x = Integer.parseInt(lineArgs[0]);
+				y = Integer.parseInt(lineArgs[1]);
+				
+				switch (lineArgs[2]) {
+				case "WallObject":
+					mapObj = new WallObject();
+					break;
+				case "AirObject":
+					mapObj = new AirObject();
+					break;
+				case "EntranceObject":
+					mapObj = new EntranceObject();
+					entrance = new Point(x,y);
+					break;
+				case "ExitObject":
+					mapObj = new ExitObject();
+					exit = new Point(x,y);
+					break;
+				default:
+					mapObj = new AirObject();
+					break;
+				}
+				
+				mapObj.setPoint(new Point(x,y));
+				map[x][y] = mapObj;
+			}
+		
+			in.close();
+		}
+		catch (Exception e) {
+			System.err.println("File not found!");
+		}
+		
+		//so, if points aren't specified fill them with air.
+		
+		for (int i = 0; i < map.length; ++i)
+			for (int j = 0; j < map[0].length; ++j)
+				if (map[i][j] == null) {
+					map[i][j] = new AirObject();
+					map[i][j].setPoint(new Point(i,j));
+				}
+		
+	}
   /**
    * Generates a random map to solve with the given width, height, and probability of a wall per block.
    * @param width The width of the map.
