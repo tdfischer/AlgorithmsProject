@@ -10,6 +10,6 @@ public class ManhattanHeuristic implements Heuristic {
   }
 
   public int calculate(MapObject start, MapObject end) {
-    return (int)(d * ((Math.abs(start.location.x-end.location.x) + (Math.abs(start.location.y-end.location.y)))));
+    return (d * ((Math.abs(start.location.x-end.location.x) + (Math.abs(start.location.y-end.location.y)))));
   }
 }
