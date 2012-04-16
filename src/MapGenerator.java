@@ -12,6 +12,27 @@ public class MapGenerator {
   private Point entrance;
   private Point exit;
   private static final String DELIMITER = ",";
+
+  /**
+    * Generates a default map with a known start and end for diagnostic and comparison purposes
+    */
+  public MapGenerator() {
+    map = new MapObject[25][25];
+
+    generateWalls(map);
+    entrance = new Point(0,4);
+    exit = new Point(24,20);
+    map[entrance.x][entrance.y] = new EntranceObject();
+    map[entrance.x][entrance.y].location = entrance;
+    map[exit.x][exit.y] = new ExitObject();
+    map[exit.x][exit.y].location = exit;
+
+    for (int i = 1; i < map.length-1;++i)
+      for (int j = 1; j < map[0].length-1;++j) {
+        map[i][j] = new AirObject();
+        map[i][j].location = new Point(i,j);
+      }
+  }
   /**
 	 * Generates a map based on a given file. The file format is CSV (for easy hand-editing) and takes the form:
 	 * a,b #first row, dimensions
@@ -92,22 +113,10 @@ public class MapGenerator {
   	
   	map = new MapObject[width][height];
   	Random random = new Random();
-  	
+    map = generateWalls(map);	
     System.out.println("Generating outer walls...");
   	//generate the outer walls
-  	for (int i = 0; i < map.length; ++i) {
-  		map[i][0] = new WallObject();
-  		map[i][0].setPoint(new Point(i,0));
-  		map[i][map[0].length-1] = new WallObject();
-  		map[i][map[0].length-1].setPoint(new Point(i,map[0].length-1));
-  	}
   	
-  	for (int j = 0; j < map[0].length; ++j) {
-  		map[0][j] = new WallObject();
-  		map[0][j].setPoint(new Point(0,j));
-  		map[map.length-1][j] = new WallObject();
-  		map[map.length-1][j].setPoint(new Point(map.length-1,j));
-  	}
   	System.out.println("Generating random data...");
   	for (int i = 1; i < map.length - 1; ++i) {
   		for (int j = 1; j < map[0].length -1; ++j) {
@@ -137,6 +146,24 @@ public class MapGenerator {
     map[p.x][p.y].setPoint(new Point(p));
     exit = new Point(p);
     System.out.println("Added new exit at "+p.x+","+p.y);
+  }
+
+  private MapObject[][] generateWalls(MapObject[][] map) {
+    for (int i = 0; i < map.length; ++i) {
+  		  map[i][0] = new WallObject();
+  		  map[i][0].setPoint(new Point(i,0));
+  		  map[i][map[0].length-1] = new WallObject();
+  		  map[i][map[0].length-1].setPoint(new Point(i,map[0].length-1));
+  	  }
+  	
+  	for (int j = 0; j < map[0].length; ++j) {
+  		map[0][j] = new WallObject();
+  		map[0][j].setPoint(new Point(0,j));
+  		map[map.length-1][j] = new WallObject();
+  		map[map.length-1][j].setPoint(new Point(map.length-1,j));
+  	}
+
+    return map;
   }
   
   //TODO: constructor that creates a preset map from a given file or resource name.

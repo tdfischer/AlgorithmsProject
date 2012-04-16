@@ -49,29 +49,15 @@ public class AStar {
 		// Properly set all the g_scores.
 		for(int i = 0; i < MAP_WIDTH; ++i) {
 			for(int j = 0; j < MAP_HEIGHT; ++j) {
-				//map[i][j].g_score = Math.abs(start.location.x-map[i][j].location.x) + (Math.abs(start.location.y-map[i][j].location.y));
 				if (!map[i][j].isWall() || map[i][j] != start || map[i][j] != end)
 					map[i][j].g_score = Math.abs(map[i][j].location.x-start.location.x) + (Math.abs(map[i][j].location.y-start.location.y));
 			}
 		}
 	
-		start.g_score = Double.MAX_VALUE;
+		start.g_score = 0;
 		end.g_score = Double.MAX_VALUE;
 
-		for(int i = 0; i < MAP_WIDTH; ++i) {
-			for(int j = 0; j < MAP_HEIGHT; ++j) {
-				if (map[i][j].isWall())
-					System.err.print("[W]");
-				else if (map[i][j] == start)
-					System.err.print("[S]");
-				else if (map[i][j] == end)
-					System.err.print("[E]");
-				else
-					System.err.print("[" + map[i][j].g_score + "]");
-			}
-			System.out.println();
-		}
-
+		
 		map[startPoint.x][startPoint.y].g_score = 0;
 		map[startPoint.x][startPoint.y].h_score = heuristic.calculate(start, end);
 		map[startPoint.x][startPoint.y].f_score = map[startPoint.x][startPoint.y].g_score + map[startPoint.x][startPoint.y].h_score;
@@ -79,7 +65,7 @@ public class AStar {
 		while (openSet.size() > 0) {
 			MapObject current = openSet.poll();
 			current.consider();
-			if (current == end)
+			if (current.name.equals("ExitObject"))
 				return reconstruct_path(came_from, came_from[end.location.x][end.location.y]);
 
 			closedSet.add(current);
@@ -93,17 +79,7 @@ public class AStar {
 				neighbors.add(this.map[current.location.x - 1][current.location.y]);
 			if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
 				neighbors.add(this.map[current.location.x + 1][current.location.y]);
-			// Diagonals.
-			/*
-			   if (current.location.x + 1 < MAP_WIDTH && current.location.y - 1 >= 0 && !map[current.location.x+1][current.location.y-1].isWall())
-			   neighbors.add(this.map[current.location.x + 1][current.location.y - 1]);
-			   if (current.location.x + 1 < MAP_WIDTH && current.location.y + 1 < MAP_HEIGHT && !map[current.location.x+1][current.location.y+1].isWall())
-			   neighbors.add(this.map[current.location.x + 1][current.location.y + 1]);
-			   if (current.location.x - 1 >= 0 && current.location.y - 1 >= 0 && !map[current.location.x-1][current.location.y-1].isWall())
-			   neighbors.add(this.map[current.location.x - 1][current.location.y - 1]);
-			   if (current.location.x - 1 >= 0 && current.location.y + 1 < MAP_HEIGHT && !map[current.location.x-1][current.location.y+1].isWall())
-			   neighbors.add(this.map[current.location.x - 1][current.location.y + 1]);
-			   */
+
 			// Check the neighbors for viable path.
 			for (MapObject neighbor : neighbors) {
 				boolean tentative_is_better = false;
@@ -122,11 +98,6 @@ public class AStar {
 					came_from[neighbor.location.x][neighbor.location.y] = current;
 					map[neighbor.location.x][neighbor.location.y].g_score = tentative_g_score;
 					map[neighbor.location.x][neighbor.location.y].f_score = map[neighbor.location.x][neighbor.location.y].g_score + map[neighbor.location.x][neighbor.location.y].h_score;
-				}
-				if (neighbor == end) {
-					System.err.println("Found end.");
-					System.err.println("tentative_g_score : " + tentative_g_score);
-					System.err.println("neighbor g_score : " + map[neighbor.location.x][neighbor.location.y].g_score);
 				}
 			}
 		}

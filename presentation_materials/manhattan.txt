@@ -1,0 +1,3 @@
+Total size: 625
+Open set: 138
+Path length: 40
