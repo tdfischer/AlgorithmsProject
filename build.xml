@@ -1,0 +1,28 @@
+<project name="AlgorithmsProject" default="compile" basedir=".">
+	<description>
+		A* pathfinding example
+	</description>
+
+	<property name="src" location="src"/>
+	<property name="bin" location="bin"/>
+	<property name="dist" location="dist"/>
+
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${bin}"/>
+		<mkdir dir="${dist}"/>
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${bin}"/>
+	</target>
+
+	<target name="dist" depends="compile">
+		<jar jarfile="${dist}/lib/AlgorithmsProject-${DSTAMP}.jar" basedir="${bin}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${bin}"/>
+		<delete dir="${dist}"/>
+	</target>
+</project>
