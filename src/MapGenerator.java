@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 /**
  * The generator class to create random and predefined maps.
- * @author Ian Palencar
- *
  */
 public class MapGenerator {
   

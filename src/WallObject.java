@@ -2,8 +2,6 @@ import java.awt.Color;
 
 /**
  * An object representing a wall (non-passable) map location.
- * @author Ian Palencar
- *
  */
 public class WallObject extends MapObject {
 	

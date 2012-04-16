@@ -2,7 +2,6 @@ import java.awt.Color;
 
 /**
  * An object representing the exit of a map.
- * @author Ian Palencar
  *
  */
 public class ExitObject extends MapObject{

@@ -2,7 +2,6 @@ import java.awt.Color;
 
 /**
  * An object representating air/blank space in the map.
- * @author Ian Palencar
  *
  */
 public class AirObject extends MapObject {

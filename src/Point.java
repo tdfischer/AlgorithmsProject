@@ -1,7 +1,5 @@
 /**
  * Drop dead simple Point class, for the list saving of solutions.
- * @author Ian Palencar
- *
  */
 public class Point {
   int x;

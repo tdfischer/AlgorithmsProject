@@ -5,7 +5,6 @@ import java.util.HashSet;
 /**
   Provides the basic A* search, with a modularized heuristic.
   See Heuristic.java to implement heuristic used by the A* search.
-  @author Robert Studenic
   */
 public class AStar {
 
