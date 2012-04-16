@@ -51,10 +51,14 @@ public class AStar {
 		for(int i = 0; i < MAP_WIDTH; ++i) {
 			for(int j = 0; j < MAP_HEIGHT; ++j) {
 				//map[i][j].g_score = Math.abs(start.location.x-map[i][j].location.x) + (Math.abs(start.location.y-map[i][j].location.y));
-				if (!map[i][j].isWall())
+				if (!map[i][j].isWall() || map[i][j] != start || map[i][j] != end)
 					map[i][j].g_score = Math.abs(map[i][j].location.x-start.location.x) + (Math.abs(map[i][j].location.y-start.location.y));
 			}
 		}
+	
+		start.g_score = Double.MAX_VALUE;
+		end.g_score = Double.MAX_VALUE;
+
 		for(int i = 0; i < MAP_WIDTH; ++i) {
 			for(int j = 0; j < MAP_HEIGHT; ++j) {
 				if (map[i][j].isWall())
@@ -106,7 +110,7 @@ public class AStar {
 				boolean tentative_is_better = false;
 
 				// If we've already processed that neighbor, check others.
-				if (closedSet.contains(neighbor) || neighbor.isWall()) 
+				if (closedSet.contains(neighbor)) 
 					continue;
 				double tentative_g_score = map[current.location.x][current.location.y].g_score + 1;
 				// If we haven't processed that neighbor, add it to be processed.	
