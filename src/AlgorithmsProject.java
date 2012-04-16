@@ -36,4 +36,5 @@ public class AlgorithmsProject {
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+	}
 }
