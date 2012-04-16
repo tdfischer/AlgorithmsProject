@@ -18,7 +18,7 @@ public class MapGenerator {
 	 * c,d,<name> #axb rows, uses the getName() property of the MapObjects.
 	 * @param f The file to load from (should be plaintext unless you want Bad Things.
 	 */
-	public MapGenerator(File f) {
+	/*public MapGenerator(File f) {
 		
 		Scanner in;
 		try {
@@ -81,7 +81,7 @@ public class MapGenerator {
 					map[i][j].setPoint(new Point(i,j));
 				}
 		
-	}
+	}*/
   /**
    * Generates a random map to solve with the given width, height, and probability of a wall per block.
    * @param width The width of the map.
