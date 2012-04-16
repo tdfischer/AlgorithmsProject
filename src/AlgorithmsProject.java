@@ -1,5 +1,6 @@
 import java.util.List;
 import javax.swing.JFrame;
+import java.io.File;
 
 
 public class AlgorithmsProject {
@@ -12,6 +13,7 @@ public class AlgorithmsProject {
 		JFrame frame = new JFrame();
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
+		//MapGenerator mapGen = new MapGenerator(new File("test.map"));
 		MapObject[][] map = mapGen.getMap();
 		AStar myAStar = new AStar(map, new ManhattanHeuristic());
 		//AStar myAStar = new AStar(map, new DijkstraHeuristic());
