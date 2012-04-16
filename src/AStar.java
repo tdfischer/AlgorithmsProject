@@ -51,12 +51,20 @@ public class AStar {
 		for(int i = 0; i < MAP_WIDTH; ++i) {
 			for(int j = 0; j < MAP_HEIGHT; ++j) {
 				//map[i][j].g_score = Math.abs(start.location.x-map[i][j].location.x) + (Math.abs(start.location.y-map[i][j].location.y));
-				map[i][j].g_score = Math.abs(map[i][j].location.x-start.location.x) + (Math.abs(map[i][j].location.y-start.location.y));
+				if (!map[i][j].isWall())
+					map[i][j].g_score = Math.abs(map[i][j].location.x-start.location.x) + (Math.abs(map[i][j].location.y-start.location.y));
 			}
 		}
 		for(int i = 0; i < MAP_WIDTH; ++i) {
 			for(int j = 0; j < MAP_HEIGHT; ++j) {
-				System.err.print("[" + map[i][j].g_score + "]");
+				if (map[i][j].isWall())
+					System.err.print("[W]");
+				else if (map[i][j] == start)
+					System.err.print("[S]");
+				else if (map[i][j] == end)
+					System.err.print("[E]");
+				else
+					System.err.print("[" + map[i][j].g_score + "]");
 			}
 			System.out.println();
 		}
@@ -116,12 +124,6 @@ public class AStar {
 					System.err.println("Found end.");
 					System.err.println("tentative_g_score : " + tentative_g_score);
 					System.err.println("neighbor g_score : " + map[neighbor.location.x][neighbor.location.y].g_score);
-				}
-				for(int i = 0; i < MAP_WIDTH; ++i) {
-					for(int j = 0; j < MAP_HEIGHT; ++j) {
-						System.err.print("[" + map[i][j].g_score + "]");
-					}
-					System.out.println();
 				}
 			}
 		}
