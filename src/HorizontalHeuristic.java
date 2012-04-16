@@ -2,7 +2,6 @@
   * The validity of this class is obviously suspect and
   * as a result should be used by nobody ever. Duh.
   */
-@Mark(name="Horizontal")
 public class HorizontalHeuristic implements Heuristic {
 
   public HorizontalHeuristic() {

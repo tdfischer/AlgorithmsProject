@@ -1,8 +1,6 @@
 import java.util.List;
 import javax.swing.JFrame;
 import java.io.File;
-import java.lang.annotation.Annotation;
-import java.lang.Class;
 
 public class AlgorithmsProject {
 	private static final int OBJECT_WIDTH = 160;
@@ -38,6 +36,4 @@ public class AlgorithmsProject {
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		System.out.println("Annotations:");
-	}
 }
