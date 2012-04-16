@@ -2,6 +2,7 @@
   * The validity of this class is obviously suspect and
   * as a result should be used by nobody ever. Duh.
   */
+@Mark(name="Manhattan")
 public class ManhattanHeuristic implements Heuristic {
 
   private int d = 1;

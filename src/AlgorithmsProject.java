@@ -1,14 +1,14 @@
 import java.util.List;
 import javax.swing.JFrame;
 import java.io.File;
-
+import java.lang.annotation.Annotation;
+import java.lang.Class;
 
 public class AlgorithmsProject {
 	private static final int OBJECT_WIDTH = 160;
 	private static final int OBJECT_HEIGHT = 90;
 	private static final double WALL_PERCENTAGE = 0.0;
 	private static final int PIXEL_SIZE = 5;
-
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
@@ -38,5 +38,6 @@ public class AlgorithmsProject {
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		System.out.println("Annotations:");
 	}
 }
