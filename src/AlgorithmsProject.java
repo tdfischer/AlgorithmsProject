@@ -15,7 +15,7 @@ public class AlgorithmsProject {
     MapGenerator mapGen = new MapGenerator();
     MapObject[][] map = mapGen.getMap();
 
-    AStar myAStar = new AStar(map, new ManhattanHeuristic());
+    AStar myAStar = new AStar(map, new DijkstraHeuristic());
 
     List<MapObject> resultList = myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]);
     */
@@ -23,7 +23,7 @@ public class AlgorithmsProject {
 
 		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
-		AStar myAStar = new AStar(map, new ManhattanHeuristic());
+		AStar myAStar = new AStar(map, new DijkstraHeuristic());
 
 		List<MapObject> resultList = null;
 
@@ -33,7 +33,7 @@ public class AlgorithmsProject {
 				System.err.println("No path found! Regenerating...");
 				mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT, WALL_PERCENTAGE);
 				map = mapGen.getMap();
-				myAStar = new AStar(map, new ManhattanHeuristic());
+				myAStar = new AStar(map, new DijkstraHeuristic());
 			}
 		}
     for (MapObject m : resultList) {

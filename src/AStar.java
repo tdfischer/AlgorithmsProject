@@ -50,12 +50,12 @@ public class AStar {
 		for(int i = 0; i < MAP_WIDTH; ++i) {
 			for(int j = 0; j < MAP_HEIGHT; ++j) {
 				if (!map[i][j].isWall() || map[i][j] != start || map[i][j] != end)
-					map[i][j].g_score = Math.abs(map[i][j].location.x-start.location.x) + (Math.abs(map[i][j].location.y-start.location.y));
+					map[i][j].g_score = start.distanceTo(map[i][j]);
 			}
 		}
 	
 		start.g_score = 0;
-		end.g_score = Double.MAX_VALUE;
+		end.g_score = Double.MAX_VALUE;//end.distanceTo(start);
 
 		
 		map[startPoint.x][startPoint.y].g_score = 0;
@@ -71,7 +71,16 @@ public class AStar {
 			closedSet.add(current);
 			ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
 			// Add the four possible neighbors to the neighbors list to be processed.
-			if (current.location.y - 1  >= 0 && !map[current.location.x][current.location.y-1].isWall())
+
+      if (current.location.x - 1 >= 0 && !map[current.location.x-1][current.location.y].isWall())
+        neighbors.add(map[current.location.x-1][current.location.y]);
+      if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
+        neighbors.add(map[current.location.x+1][current.location.y]);
+      if (current.location.y - 1 >= 0 && !map[current.location.x][current.location.y-1].isWall())
+        neighbors.add(map[current.location.x][current.location.y-1]);
+      if (current.location.y + 1 < MAP_HEIGHT && !map[current.location.x][current.location.y+1].isWall())
+        neighbors.add(map[current.location.x][current.location.y+1]);
+			/*if (current.location.y - 1  >= 0 && !map[current.location.x][current.location.y-1].isWall())
 				neighbors.add(this.map[current.location.x][current.location.y - 1]);
 			if (current.location.y + 1 < MAP_HEIGHT && !map[current.location.x][current.location.y+1].isWall())
 				neighbors.add(this.map[current.location.x][current.location.y + 1]);
@@ -79,7 +88,7 @@ public class AStar {
 				neighbors.add(this.map[current.location.x - 1][current.location.y]);
 			if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
 				neighbors.add(this.map[current.location.x + 1][current.location.y]);
-
+      */
 			// Check the neighbors for viable path.
 			for (MapObject neighbor : neighbors) {
 				boolean tentative_is_better = false;

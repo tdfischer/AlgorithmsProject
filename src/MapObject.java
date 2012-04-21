@@ -29,6 +29,12 @@ public class MapObject implements Comparable<MapObject> {
 	public Point getPoint() {
 		return location;
 	}
+
+  public double distanceTo(MapObject other) {
+
+    return Math.sqrt(Math.pow((other.location.x - location.x),2) + (Math.pow((other.location.y - location.y),2)));
+
+  }
 	
 	/**
 	 * Returns whether a given object is pathable (passable)
