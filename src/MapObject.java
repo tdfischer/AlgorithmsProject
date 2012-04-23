@@ -16,7 +16,6 @@ public class MapObject implements Comparable<MapObject> {
     protected MapObject parent;
     public double g_score = Double.MAX_VALUE;
     public double h_score = Double.MAX_VALUE;
-    public double f_score = Double.MAX_VALUE;
 
     public MapObject() {
         isPathable = false;
@@ -86,10 +85,10 @@ public class MapObject implements Comparable<MapObject> {
     }
 
     public int compareTo(MapObject o) {
-        if (f_score < o.f_score) {
+        if (g_score + h_score < o.g_score + o.h_score) {
             return -1;
         }
-        if (f_score > o.f_score) {
+        if (g_score + h_score > o.g_score + o.h_score) {
             return 1;
         }
         return 0;

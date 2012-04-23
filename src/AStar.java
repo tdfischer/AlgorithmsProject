@@ -17,33 +17,37 @@ public class AStar {
         int MAP_WIDTH = map.length;
         int MAP_HEIGHT = map[0].length;
 
+        // Set g_score and h_score of all nodes.
+        for(int x = 0; x < MAP_WIDTH; ++x) {
+            for(int y = 0; y < MAP_HEIGHT; ++y) {
+                map[x][y].g_score = Math.abs(x - start.location.x) + Math.abs(y - start.location.y);
+                map[x][y].h_score = heuristic.calculate(map[x][y], end);
+            }
+        }
+
         PriorityQueue<MapObject> openset = new PriorityQueue<MapObject>();
         // Add start to the openset.
         openset.offer(start);
         HashSet<MapObject> closedset = new HashSet<MapObject>();
 
-        while (openset.size() > 0) {
+        while (openset.peek() != end) {
 
             MapObject current = openset.poll();
             closedset.add(current);
-            if (current == end) {
-                // Return the path to the start and end.
-                return reconstruct_path(end, start);
-            }
 
             // Get the neighbors of the current node.
             ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
             // Up
-            if (current.location.y - 1 >= 0 && closedset.contains(map[current.location.x][current.location.y-1]))
+            if (current.location.y - 1 >= 0 && !map[current.location.x][current.location.y-1].isWall())
                 neighbors.add(map[current.location.x][current.location.y-1]);
             // Down
-            if (current.location.y + 1 < MAP_WIDTH && closedset.contains(map[current.location.x][current.location.y+1]))
+            if (current.location.y + 1 < MAP_HEIGHT && !map[current.location.x][current.location.y+1].isWall())
                 neighbors.add(map[current.location.x][current.location.y+1]);
             // Left
-            if (current.location.x - 1 >= 0 && closedset.contains(map[current.location.x-1][current.location.y]))
+            if (current.location.x - 1 >= 0 && !map[current.location.x-1][current.location.y].isWall())
                 neighbors.add(map[current.location.x-1][current.location.y]);
             // Right
-            if (current.location.x + 1 < MAP_HEIGHT && closedset.contains(map[current.location.x+1][current.location.y]))
+            if (current.location.x + 1 < MAP_WIDTH && !map[current.location.x+1][current.location.y].isWall())
                 neighbors.add(map[current.location.x+1][current.location.y]);
 
             // Check each neighbor.
@@ -66,7 +70,7 @@ public class AStar {
             }
         }
 
-        return null;
+        return reconstruct_path(end, start);
     }
 
     private ArrayList<MapObject> reconstruct_path(MapObject current, MapObject start) {

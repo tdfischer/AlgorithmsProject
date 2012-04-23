@@ -3,9 +3,9 @@ import javax.swing.JFrame;
 import java.io.File;
 
 public class AlgorithmsProject {
-	private static final int OBJECT_WIDTH = 160;
-	private static final int OBJECT_HEIGHT = 90;
-	private static final double WALL_PERCENTAGE = 0.12;
+	private static final int OBJECT_WIDTH = 25;
+	private static final int OBJECT_HEIGHT = 25;
+	private static final double WALL_PERCENTAGE = 0;
 	private static final int PIXEL_SIZE = 5;
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
