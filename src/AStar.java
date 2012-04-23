@@ -14,6 +14,10 @@ public class AStar {
     }
 
     public ArrayList<MapObject> search(MapObject start, MapObject end) {
+
+        PriorityQueue<MapObject> openset = new PriorityQueue<MapObject>();
+        HashSet<MapObject> closedset = new HashSet<MapObject>();
+
         return null;
     }
 }
