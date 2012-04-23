@@ -14,6 +14,8 @@ public class AStar {
     }
 
     public ArrayList<MapObject> search(MapObject start, MapObject end) {
+        int MAP_WIDTH = map.length;
+        int MAP_HEIGHT = map[0].length;
 
         PriorityQueue<MapObject> openset = new PriorityQueue<MapObject>();
         // Add start to the openset.
@@ -32,13 +34,17 @@ public class AStar {
             // Get the neighbors of the current node.
             ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
             // Up
-            neighbors.add(map[current.location.x][current.location.y-1]);
+            if (current.location.y - 1 < 0 && closedset.contains(map[current.location.x][current.location.y-1]))
+                neighbors.add(map[current.location.x][current.location.y-1]);
             // Down
-            neighbors.add(map[current.location.x][current.location.y+1]);
+            if (current.location.y + 1 > MAP_WIDTH && closedset.contains(map[current.location.x][current.location.y+1))
+                neighbors.add(map[current.location.x][current.location.y+1]);
             // Left
-            neighbors.add(map[current.location.x-1][current.location.y]);
+            if (current.location.x - 1 < 0 && closedset.contains(map[current.location.x-1][current.location.y]))
+                neighbors.add(map[current.location.x-1][current.location.y]);
             // Right
-            neighbors.add(map[current.location.x+1][current.location.y]);
+            if (current.location.x + 1 > MAP_HEIGHT && closedset.contains(map[current.location.x+1][current.location.y]))
+                neighbors.add(map[current.location.x+1][current.location.y]);
 
             // Check each neighbor.
         }
