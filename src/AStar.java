@@ -3,11 +3,17 @@ import java.util.*;
 
 public class AStar {
 
-  public AStar(MapObject[][] map, Heuristic heuristic) {
+    private MapObject[][] map;
+    private Heuristic heuristic;
 
-  }
+    public AStar(MapObject[][] map, Heuristic heuristic) {
 
-  public ArrayList<MapObject> search(MapObject start, MapObject end) {
-    return null;
-  }
+        this.map = map;
+        this.heuristic = heuristic;
+
+    }
+
+    public ArrayList<MapObject> search(MapObject start, MapObject end) {
+        return null;
+    }
 }
