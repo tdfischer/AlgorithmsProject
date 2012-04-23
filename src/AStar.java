@@ -47,8 +47,29 @@ public class AStar {
                 neighbors.add(map[current.location.x+1][current.location.y]);
 
             // Check each neighbor.
+            for (MapObject neighbor : neighbors) {
+                int cost = current.g_score + movement_cost(current, neighbor);
+
+                // Remove neighbor from openset, because new path is better.
+                if (openset.contains(neighbor) && cost <= neighbor.g_score)
+                    openset.remove(neighbor);
+                // Remove neighbor from closedset, because we found a better path.
+                // This should never happen if the heuristic is monotonic.
+                if (closedset.contains(neighbor) && cost <= neighbor.g_score))
+                    closedset.remove(neighbor);
+                // If the neighbor hasn't been in either, add it to open.
+                if (!openset.contains(neighbor) && !closedset.contains(neighbor)) {
+                    neighbor.g_score = cost;
+                    openset.add(neighbor);
+                    neighbor.parent = current;
+                }
+            }
         }
 
         return null;
+    }
+
+    private int movement_cost(MapObject current, MapObject neighbor) {
+        return 1;
     }
 }
