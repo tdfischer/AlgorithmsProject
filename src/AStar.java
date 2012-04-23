@@ -29,6 +29,18 @@ public class AStar {
                 return null;
             }
 
+            // Get the neighbors of the current node.
+            ArrayList<MapObject> neighbors = new ArrayList<MapObject>();
+            // Up
+            neighbors.add(map[current.location.x][current.location.y-1]);
+            // Down
+            neighbors.add(map[current.location.x][current.location.y+1]);
+            // Left
+            neighbors.add(map[current.location.x-1][current.location.y]);
+            // Right
+            neighbors.add(map[current.location.x+1][current.location.y]);
+
+            // Check each neighbor.
         }
 
         return null;
