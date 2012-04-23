@@ -37,13 +37,13 @@ public class AStar {
             if (current.location.y - 1 >= 0 && closedset.contains(map[current.location.x][current.location.y-1]))
                 neighbors.add(map[current.location.x][current.location.y-1]);
             // Down
-            if (current.location.y + 1 >= MAP_WIDTH && closedset.contains(map[current.location.x][current.location.y+1]))
+            if (current.location.y + 1 < MAP_WIDTH && closedset.contains(map[current.location.x][current.location.y+1]))
                 neighbors.add(map[current.location.x][current.location.y+1]);
             // Left
             if (current.location.x - 1 >= 0 && closedset.contains(map[current.location.x-1][current.location.y]))
                 neighbors.add(map[current.location.x-1][current.location.y]);
             // Right
-            if (current.location.x + 1 >= MAP_HEIGHT && closedset.contains(map[current.location.x+1][current.location.y]))
+            if (current.location.x + 1 < MAP_HEIGHT && closedset.contains(map[current.location.x+1][current.location.y]))
                 neighbors.add(map[current.location.x+1][current.location.y]);
 
             // Check each neighbor.
