@@ -15,7 +15,8 @@ public class Batch {
 
     Heuristic[] heuristics = {
       new DijkstraHeuristic(),
-      new ManhattanHeuristic()
+      new ManhattanHeuristic(),
+      new EuclideanHeuristic()
     };
 
     for (Heuristic h : heuristics) {

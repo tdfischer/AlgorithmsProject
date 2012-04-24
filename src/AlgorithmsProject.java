@@ -6,7 +6,7 @@ public class AlgorithmsProject {
 	private static final int OBJECT_WIDTH = 100;
 	private static final int OBJECT_HEIGHT = 100;
 	private static final double WALL_PERCENTAGE = 0.08;
-	private static final int PIXEL_SIZE = 2;
+	private static final int PIXEL_SIZE = 4;
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
@@ -29,7 +29,7 @@ public class AlgorithmsProject {
     else
       mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
-    Heuristic heuristic = new ManhattanHeuristic();
+    Heuristic heuristic = new EuclideanHeuristic();
 		AStar myAStar = new AStar(map, heuristic);
 
 		List<MapObject> resultList = null;

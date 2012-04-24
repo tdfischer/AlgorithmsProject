@@ -3,6 +3,6 @@
   * Just implement this interface and roll your own calculate()!
   */
 public interface Heuristic {
-  int calculate(MapObject start, MapObject end);
+  double calculate(MapObject start, MapObject end);
   String getName();
 }
