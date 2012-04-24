@@ -33,6 +33,8 @@ public class AStar {
         while (openset.peek() != end) {
 
             MapObject current = openset.poll();
+            //added the following line for drawing prettiness.
+            current.consider();
             closedset.add(current);
 
             // Get the neighbors of the current node.
