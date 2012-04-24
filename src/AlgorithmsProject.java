@@ -3,10 +3,10 @@ import javax.swing.JFrame;
 import java.io.File;
 
 public class AlgorithmsProject {
-	private static final int OBJECT_WIDTH = 160;
-	private static final int OBJECT_HEIGHT = 90;
-	private static final double WALL_PERCENTAGE = 0.15;
-	private static final int PIXEL_SIZE = 5;
+	private static final int OBJECT_WIDTH = 100;
+	private static final int OBJECT_HEIGHT = 100;
+	private static final double WALL_PERCENTAGE = 0.08;
+	private static final int PIXEL_SIZE = 2;
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));

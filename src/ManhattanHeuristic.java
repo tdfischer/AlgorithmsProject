@@ -11,4 +11,7 @@ public class ManhattanHeuristic implements Heuristic {
   public int calculate(MapObject start, MapObject end) {
     return (d * ((Math.abs(start.location.x-end.location.x) + (Math.abs(start.location.y-end.location.y)))));
   }
+  public String getName() {
+    return "Manhattan";
+  }
 }
