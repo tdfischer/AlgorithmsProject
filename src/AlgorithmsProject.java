@@ -20,8 +20,14 @@ public class AlgorithmsProject {
     List<MapObject> resultList = myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]);
     */
 
+    MapGenerator mapGen = null;
 
-		MapGenerator mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
+    if (args.length > 0) {
+      System.out.println("map file: " + args[0]);
+      mapGen = new MapGenerator(new File(args[0]));
+    }
+    else
+      mapGen = new MapGenerator(OBJECT_WIDTH, OBJECT_HEIGHT,WALL_PERCENTAGE);
 		MapObject[][] map = mapGen.getMap();
     Heuristic heuristic = new ManhattanHeuristic();
 		AStar myAStar = new AStar(map, heuristic);
@@ -40,6 +46,8 @@ public class AlgorithmsProject {
     for (MapObject m : resultList) {
 			map[m.location.x][m.location.y].visit();
 		}
+    if (args.length == 0)
+      MapTools.ExportMap(map);
 		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

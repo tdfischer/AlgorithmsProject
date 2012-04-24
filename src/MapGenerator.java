@@ -33,76 +33,18 @@ public class MapGenerator {
         map[i][j].location = new Point(i,j);
       }
   }
-  /**
-	 * Generates a map based on a given file. The file format is CSV (for easy hand-editing) and takes the form:
-	 * a,b #first row, dimensions
-	 * c,d,<name> #axb rows, uses the getName() property of the MapObjects.
-	 * @param f The file to load from (should be plaintext unless you want Bad Things.
-	 */
-	/*public MapGenerator(File f) {
-		
-		Scanner in;
-		try {
-			in = new Scanner(f);
-			
-			String[] lineArgs;
-			
-			lineArgs = in.nextLine().split(DELIMITER);
-			
-			int width = Integer.parseInt(lineArgs[0]);
-			int height = Integer.parseInt(lineArgs[1]);
-			
-			map = new MapObject[width][height];
-			int x = 0;
-			int y = 0;
-			MapObject mapObj;
-			while (in.hasNextLine()) {
-				lineArgs = in.nextLine().split(DELIMITER);
-				if (lineArgs.length < 3)
-					continue;
-				x = Integer.parseInt(lineArgs[0]);
-				y = Integer.parseInt(lineArgs[1]);
-				
-				switch (lineArgs[2]) {
-				case "WallObject":
-					mapObj = new WallObject();
-					break;
-				case "AirObject":
-					mapObj = new AirObject();
-					break;
-				case "EntranceObject":
-					mapObj = new EntranceObject();
-					entrance = new Point(x,y);
-					break;
-				case "ExitObject":
-					mapObj = new ExitObject();
-					exit = new Point(x,y);
-					break;
-				default:
-					mapObj = new AirObject();
-					break;
-				}
-				
-				mapObj.setPoint(new Point(x,y));
-				map[x][y] = mapObj;
-			}
-		
-			in.close();
-		}
-		catch (Exception e) {
-			System.err.println("File not found!");
-		}
-		
-		//so, if points aren't specified fill them with air.
-		
-		for (int i = 0; i < map.length; ++i)
-			for (int j = 0; j < map[0].length; ++j)
-				if (map[i][j] == null) {
-					map[i][j] = new AirObject();
-					map[i][j].setPoint(new Point(i,j));
-				}
-		
-	}*/
+  //TODO:Map Importing
+  public MapGenerator(File f) {
+    map = MapTools.ImportMap(f);
+    for (int i = 0; i < map.length; ++i) {
+      for (int j = 0; j < map[0].length; ++j) {
+        if (map[i][j] instanceof EntranceObject)
+          entrance = map[i][j].location;
+        else if (map[i][j] instanceof ExitObject)
+          exit = map[i][j].location;
+      }
+    }
+  }
   /**
    * Generates a random map to solve with the given width, height, and probability of a wall per block.
    * @param width The width of the map.
@@ -114,10 +56,8 @@ public class MapGenerator {
   	map = new MapObject[width][height];
   	Random random = new Random();
     map = generateWalls(map);	
-    System.out.println("Generating outer walls...");
   	//generate the outer walls
   	
-  	System.out.println("Generating random data...");
   	for (int i = 1; i < map.length - 1; ++i) {
   		for (int j = 1; j < map[0].length -1; ++j) {
   			if (random.nextDouble() > probabilityOfWall) {
@@ -128,7 +68,6 @@ public class MapGenerator {
   				map[i][j] = new WallObject();
   				map[i][j].setPoint(new Point(i,j));
   			}
-        System.out.println("Generated new "+map[i][j]);
   		}
   	}
   	
@@ -139,13 +78,11 @@ public class MapGenerator {
     map[p.x][p.y] = new EntranceObject();
     map[p.x][p.y].setPoint(new Point(p));
     entrance = new Point(p);
-    System.out.println("Added new entrance at "+p.x+","+p.y);
     //add the exit
     p = generateEntranceOrExit(random);
     map[p.x][p.y] = new ExitObject();
     map[p.x][p.y].setPoint(new Point(p));
     exit = new Point(p);
-    System.out.println("Added new exit at "+p.x+","+p.y);
   }
 
   private MapObject[][] generateWalls(MapObject[][] map) {
