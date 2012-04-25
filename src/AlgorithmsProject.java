@@ -3,10 +3,10 @@ import javax.swing.JFrame;
 import java.io.File;
 
 public class AlgorithmsProject {
-	private static final int OBJECT_WIDTH = 100;
-	private static final int OBJECT_HEIGHT = 100;
+	private static final int OBJECT_WIDTH = 250;
+	private static final int OBJECT_HEIGHT = 250;
 	private static final double WALL_PERCENTAGE = 0.08;
-	private static final int PIXEL_SIZE = 4;
+	private static final int PIXEL_SIZE = 1;
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setSize(((OBJECT_WIDTH)*PIXEL_SIZE),((OBJECT_HEIGHT+5)*PIXEL_SIZE));
@@ -15,7 +15,7 @@ public class AlgorithmsProject {
     MapGenerator mapGen = new MapGenerator();
     MapObject[][] map = mapGen.getMap();
 
-    AStar myAStar = new AStar(map, new ManhattanHeuristic());
+    AStar myAStar = new AStar(map, new EuclideanHeuristic());
 
     List<MapObject> resultList = myAStar.search(map[mapGen.getEntrance().x][mapGen.getEntrance().y],map[mapGen.getExit().x][mapGen.getExit().y]);
     */
@@ -48,6 +48,7 @@ public class AlgorithmsProject {
 		}
     if (args.length == 0)
       MapTools.ExportMap(map);
+    //System.exit(0); //for bailing without drawing anything, woo.
 		MapPanel myMapPanel = new MapPanel(map, PIXEL_SIZE);
 		frame.add(myMapPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -38,6 +38,7 @@ public class Batch {
       System.out.println("Open set size: "+openSetCount);
       System.out.println("Path length: "+results.size());
       System.out.println("---------------");
+      System.gc();
 
     }
   }
