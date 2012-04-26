@@ -14,8 +14,8 @@ Running
 -------
 Ensure you have Java and Ant installed, then simply run
 * Linux
-	./build
+ * ./build
 * Windows
-	ant
-	java -cp bin AlgorithmsProject
+ * ant
+ * java -cp bin AlgorithmsProject
 and you should see output right away!
