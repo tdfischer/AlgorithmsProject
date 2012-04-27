@@ -14,7 +14,7 @@
 	</target>
 
 	<target name="compile" depends="init">
-		<javac includeantruntime="false" srcdir="${src}" destdir="${bin}"/>
+		<javac includeantruntime="false" srcdir="${src}" destdir="${bin}" debug="true"/>
 	</target>
 
 	<target name="dist" depends="compile">
